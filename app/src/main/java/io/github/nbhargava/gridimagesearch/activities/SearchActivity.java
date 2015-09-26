@@ -2,13 +2,14 @@ package io.github.nbhargava.gridimagesearch.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.GridView;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -30,14 +31,14 @@ import io.github.nbhargava.gridimagesearch.models.SearchSettings;
 public class SearchActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE_SETTINGS = 5000;
-    private EditText etQuery;
     private GridView gvResults;
 
     private SearchSettings searchSettings;
 
     private ArrayList<ImageResult> imageResults;
-
     private ImageResultsAdapter aImageResults;
+
+    private String activeQuery = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,7 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         setupViews();
-        imageResults = new ArrayList<ImageResult>();
+        imageResults = new ArrayList<>();
         aImageResults = new ImageResultsAdapter(this, imageResults);
 
         searchSettings = new SearchSettings();
@@ -56,6 +57,25 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                activeQuery = query;
+
+                aImageResults.clear();
+                executeGoogleImageSearch(activeQuery, 0);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
         return true;
     }
 
@@ -81,7 +101,6 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void setupViews() {
-        etQuery = (EditText) findViewById(R.id.etQuery);
         gvResults = (GridView) findViewById(R.id.gvResults);
 
         gvResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -99,17 +118,9 @@ public class SearchActivity extends AppCompatActivity {
         gvResults.setOnScrollListener(new EndlessScrollListener() {
             @Override
             public void onLoadMore(int page, int totalItemCount) {
-                String query = etQuery.getText().toString();
-                executeGoogleImageSearch(query, totalItemCount / SearchSettings.PAGE_SIZE);
+                executeGoogleImageSearch(activeQuery, totalItemCount / SearchSettings.PAGE_SIZE);
             }
         });
-    }
-
-    public void onImageSearch(View view) {
-        aImageResults.clear();
-
-        String query = etQuery.getText().toString();
-        executeGoogleImageSearch(query, 0);
     }
 
     private void executeGoogleImageSearch(String query, int page) {
@@ -124,7 +135,6 @@ public class SearchActivity extends AppCompatActivity {
                 JSONArray imageResultsJson;
                 try {
                     imageResultsJson = response.getJSONObject("responseData").getJSONArray("results");
-//                    aImageResults.clear(); // clear existing images from the array (where it's a new search)
                     aImageResults.addAll(ImageResult.fromJsonArray(imageResultsJson));
                 } catch (JSONException e) {
                     e.printStackTrace();
