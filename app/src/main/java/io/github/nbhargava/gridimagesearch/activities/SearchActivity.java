@@ -5,13 +5,12 @@ import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.GridView;
 
+import com.etsy.android.grid.StaggeredGridView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -31,7 +30,7 @@ import io.github.nbhargava.gridimagesearch.models.SearchSettings;
 public class SearchActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE_SETTINGS = 5000;
-    private GridView gvResults;
+    private StaggeredGridView gvResults;
 
     private SearchSettings searchSettings;
 
@@ -101,7 +100,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void setupViews() {
-        gvResults = (GridView) findViewById(R.id.gvResults);
+        gvResults = (StaggeredGridView) findViewById(R.id.gvResults);
 
         gvResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -130,8 +129,6 @@ public class SearchActivity extends AppCompatActivity {
         client.get(url, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Log.d("DEBUG", response.toString());
-
                 JSONArray imageResultsJson;
                 try {
                     imageResultsJson = response.getJSONObject("responseData").getJSONArray("results");

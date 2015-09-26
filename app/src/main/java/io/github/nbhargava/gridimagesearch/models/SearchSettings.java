@@ -2,7 +2,6 @@ package io.github.nbhargava.gridimagesearch.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 /**
  * Created by nikhil on 9/24/15.
@@ -81,7 +80,6 @@ public class SearchSettings implements Parcelable {
             url += "&as_sitesearch=" + siteFilter;
         }
 
-        Log.d("DEBUG", url);
         return url;
     }
 
