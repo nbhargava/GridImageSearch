@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">GridImageSearch</string>
+
+    <string name="search_button">Search</string>
+    <string name="search_prompt">Enter search query</string>
+
+    <string name="image_result">Image Result</string>
+    <string name="settings_menu_item">Settings</string>
+    <string name="advanced_search_settings">Advanced Search Settings</string>
+    <string name="image_size">Image Size</string>
+    <string name="color_filter">Color Filter</string>
+    <string name="image_type">Image Type</string>
+    <string name="site_filter">Site Filter</string>
+    <string name="save_button">Save</string>
+</resources>
