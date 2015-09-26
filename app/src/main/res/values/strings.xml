@@ -13,4 +13,6 @@
     <string name="site_filter">Site Filter</string>
     <string name="save_button">Save</string>
     <string name="search_menu_item">Search</string>
+    <string name="full_screen_image_view">Full screen image view</string>
+    <string name="share_image_prompt">Share image using</string>
 </resources>
