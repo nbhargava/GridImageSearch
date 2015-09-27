@@ -3,6 +3,9 @@ package io.github.nbhargava.gridimagesearch.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 /**
  * Created by nikhil on 9/24/15.
  */
@@ -68,16 +71,22 @@ public class SearchSettings implements Parcelable {
         url += "&start=" + (PAGE_SIZE * page);
 
         if (valueExists(colorFilter)) {
-            url += "&imgcolor=" + colorFilter;
+            url += "&imgc=" + colorFilter;
         }
         if (valueExists(imageSize)) {
             url += "&imgsz=" + imageSize;
         }
         if (valueExists(imageType)) {
-            url += "&imgtype=" + imageType;
+            url += "&as_filetype=" + imageType;
         }
         if (siteFilter != null && !siteFilter.equals("")) {
-            url += "&as_sitesearch=" + siteFilter;
+            String escapedSiteFilter;
+            try {
+                escapedSiteFilter = URLEncoder.encode(siteFilter, "utf-8");
+                url += "&as_sitesearch=" + escapedSiteFilter;
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }
 
         return url;

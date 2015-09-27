@@ -25,7 +25,7 @@
         android:layout_below="@+id/tvSettingsTitle"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:padding="5dp"
+        android:padding="@dimen/search_settings_base_padding"
         />
 
     <Spinner
@@ -39,7 +39,7 @@
         android:layout_toRightOf="@+id/tvImageSize"
         android:layout_toEndOf="@+id/tvImageSize"
         android:layout_alignBottom="@+id/tvImageSize"
-        android:padding="5dp"
+        android:padding="@dimen/search_settings_base_padding"
         />
 
     <TextView
@@ -51,7 +51,7 @@
         android:layout_below="@+id/tvImageSize"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:padding="5dp"
+        android:padding="@dimen/search_settings_base_padding"
         />
 
     <Spinner
@@ -65,7 +65,7 @@
         android:layout_toRightOf="@+id/tvColorFilter"
         android:layout_toEndOf="@+id/tvColorFilter"
         android:layout_alignBottom="@+id/tvColorFilter"
-        android:padding="5dp"
+        android:padding="@dimen/search_settings_base_padding"
         />
 
     <TextView
@@ -77,7 +77,7 @@
         android:layout_below="@+id/tvColorFilter"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:padding="5dp"
+        android:padding="@dimen/search_settings_base_padding"
         />
 
     <Spinner
@@ -91,7 +91,7 @@
         android:layout_toRightOf="@+id/tvImageType"
         android:layout_toEndOf="@+id/tvImageType"
         android:layout_alignBottom="@+id/tvImageType"
-        android:padding="5dp"
+        android:padding="@dimen/search_settings_base_padding"
         />
 
     <TextView
@@ -103,7 +103,7 @@
         android:layout_below="@+id/tvImageType"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:padding="5dp"
+        android:padding="@dimen/search_settings_base_padding"
         />
 
     <EditText
@@ -115,7 +115,9 @@
         android:layout_alignParentEnd="true"
         android:layout_toRightOf="@+id/tvSiteFilter"
         android:layout_toEndOf="@+id/tvSiteFilter"
-        android:layout_alignBottom="@+id/tvSiteFilter" />
+        android:layout_alignBottom="@+id/tvSiteFilter"
+        android:padding="@dimen/search_settings_base_padding"
+        />
 
     <Button
         android:layout_width="wrap_content"
@@ -125,7 +127,7 @@
         android:layout_below="@+id/tvSiteFilter"
         android:layout_centerHorizontal="true"
         android:onClick="onSettingsSaved"
-        android:padding="5dp"
+        android:padding="@dimen/search_settings_base_padding"
         />
 
 </RelativeLayout>

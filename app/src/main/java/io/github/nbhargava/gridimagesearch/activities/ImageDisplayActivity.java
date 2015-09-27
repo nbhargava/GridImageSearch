@@ -19,11 +19,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import io.github.nbhargava.gridimagesearch.R;
+import io.github.nbhargava.gridimagesearch.views.TouchImageView;
 
 public class ImageDisplayActivity extends AppCompatActivity {
 
     private String url = "";
-    private ImageView ivDisplayImage;
+    private TouchImageView ivDisplayImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +32,13 @@ public class ImageDisplayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_image_display);
 
         url = getIntent().getStringExtra("url");
-        ivDisplayImage = (ImageView) findViewById(R.id.ivDisplayImage);
+        ivDisplayImage = (TouchImageView) findViewById(R.id.ivDisplayImage);
 
         Picasso.with(this)
                 .load(url)
+                .placeholder(R.drawable.placeholder)
+                .fit()
+                .centerInside()
                 .into(ivDisplayImage);
     }
 
